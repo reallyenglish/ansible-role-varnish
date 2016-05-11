@@ -1,0 +1,12 @@
+__varnish_user: varnish
+__varnish_group: varnish
+__varnish_log_user: varnishlog
+__varnish_log_dir: /var/log
+__varnish_package: varnish4
+__varnish_db_dir: /var/db/varnish
+__varnish_conf_dir: /usr/local/etc/varnish
+__varnish_varnishlog_service: varnishlog
+__varnish_cache_dir: "/var/cache/varnish"
+__varnish_varnishncsa_service: varnishncsa
+__varnish_varnishncsa_dir: /var/log/varnishncsa
+__varnish_varnishncsa_format: ""

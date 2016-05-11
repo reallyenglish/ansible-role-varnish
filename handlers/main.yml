@@ -1,0 +1,16 @@
+---
+
+- name: Restart varnishd
+  service:
+    name: "{{ varnish_service }}"
+    state: restarted
+
+- name: Restart varnishlog
+  service:
+    name: "{{ varnish_varnishlog_service }}"
+    state: restarted
+
+- name: Restart varnishncsa
+  service:
+    name: "{{ varnish_varnishncsa_service }}"
+    state: restarted

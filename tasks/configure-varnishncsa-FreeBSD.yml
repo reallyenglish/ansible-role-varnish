@@ -1,0 +1,7 @@
+---
+
+- name: Create rc.conf.d/varnishncsa
+  template:
+    src: FreeBSD.rc.conf.varnishncsa.j2
+    dest: /etc/rc.conf.d/varnishncsa
+  notify: Restart varnishncsa

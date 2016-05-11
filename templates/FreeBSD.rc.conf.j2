@@ -1,0 +1,11 @@
+varnishd_listen="{{ varnish_varnishd_listen_on }}"
+varnishd_admin="{{ varnish_admin_listen_on }}"
+# varnishd_backend
+# varnishd_config
+varnishd_hash="{{ varnish_hash }}"
+varnishd_storage="{{ varnish_storage }}"
+varnishd_jailuser="{{ varnish_user }}"
+varnishd_extra_flags="{{ varnish_extra_flags }}"
+{% if varnish_varnishadm_secret %}
+varnishd_extra_flags="${varnishd_extra_flags} -S {{ varnish_conf_dir }}/secret"
+{% endif %}

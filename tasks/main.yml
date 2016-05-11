@@ -1,0 +1,82 @@
+---
+# tasks file for ansible-role-varnish
+
+- include_vars: "{{ ansible_os_family }}.yml"
+
+- include: install-FreeBSD.yml
+  when: ansible_os_family == 'FreeBSD'
+
+- name: Create log directory
+  file:
+    path: "{{ varnish_log_dir }}"
+    mode: 0755
+    owner: "{{ varnish_user }}"
+    group: "{{ varnish_group }}"
+    state: directory
+  notify: Restart varnishd
+  when: "{{ varnish_log_dir != '/var/log' }}"
+
+- include: configure-varnishlog-FreeBSD.yml
+  when: ansible_os_family == 'FreeBSD'
+
+- name: Start varnishlog
+  service:
+    name: "{{ varnish_varnishlog_service }}"
+    enabled: true
+    state: started
+
+- include: configure-varnishncsa-FreeBSD.yml
+  when: ansible_os_family == 'FreeBSD'
+
+- name: Create varnishncsa log directory
+  file:
+    path: "{{ varnish_varnishncsa_dir }}"
+    mode: 0755
+    state: directory
+  notify: Restart varnishncsa
+  when: "{{ varnish_log_dir != '/var/log' }}"
+
+- name: Start varnishncsa
+  service:
+    name: "{{ varnish_varnishncsa_service }}"
+    enabled: true
+    state: started
+
+- name: Create cache dir
+  file:
+    path: "{{ varnish_cache_dir }}"
+    mode: 0700
+    owner: "{{ varnish_user }}"
+    group: "{{ varnish_group }}"
+    state: directory
+  notify: Restart varnishd
+
+- name: Create conf directory
+  file:
+    path: "{{ varnish_conf_dir }}"
+    mode: 0755
+    state: directory
+  notify: Restart varnishd
+
+- name: Create vcls
+  template:
+    src: default.vcl.j2
+    dest: "{{ varnish_conf_dir }}/{{ item.key }}.vcl"
+  notify: Restart varnishd
+  with_dict: "{{ varnish_vcl }}"
+  when: "{{ 'inline' in item.value }}"
+
+- name: Create varnishadm secret
+  template:
+    src: varnishadm_secret.j2
+    dest: "{{ varnish_conf_dir }}/secret"
+    mode: 0700
+
+- include: configure-FreeBSD.yml
+  when: ansible_os_family == 'FreeBSD'
+
+- name: Start varnish
+  service:
+    name: "{{ varnish_service }}"
+    enabled: true
+    state: started

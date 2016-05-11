@@ -1,0 +1,6 @@
+---
+
+- name: Install varnish
+  pkgng:
+    name: "{{ varnish_package }}"
+    state: present

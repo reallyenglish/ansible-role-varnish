@@ -1,0 +1,26 @@
+varnish_user: "{{ __varnish_user }}"
+varnish_group: "{{ __varnish_group }}"
+varnish_log_user: "{{ __varnish_log_user }}"
+varnish_log_dir: "{{ __varnish_log_dir }}"
+varnish_log_file: "{{ varnish_log_dir }}/varnish.log"
+varnish_service: varnishd
+varnish_package: "{{ __varnish_package }}"
+varnish_conf_dir: "{{ __varnish_conf_dir }}"
+
+varnish_cache_dir: "{{ __varnish_cache_dir }}"
+varnish_storage: "file,{{ varnish_cache_dir }},100M" # -s
+varnish_varnishd_listen_on: ":80" # -a
+varnish_admin_listen_on: "localhost:81" # -T
+varnish_hash: "classic,16383" # -h
+varnish_extra_flags: ""
+
+varnish_varnishlog_service: "{{ __varnish_varnishlog_service }}"
+
+varnish_varnishncsa_service: "{{ __varnish_varnishncsa_service }}"
+varnish_varnishncsa_dir: "{{ __varnish_varnishncsa_dir }}"
+varnish_varnishncsa_file: "{{ varnish_varnishncsa_dir }}/varnishncsa.log"
+varnish_varnishncsa_format: "{{ __varnish_varnishncsa_format }}"
+
+varnish_varnishadm_secret:
+
+varnish_vcl: {}

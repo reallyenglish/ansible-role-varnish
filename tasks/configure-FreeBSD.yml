@@ -1,0 +1,7 @@
+---
+
+- name: Create rc.conf.d/varnishd
+  template:
+    src: FreeBSD.rc.conf.j2
+    dest: /etc/rc.conf.d/varnishd
+  notify: Restart varnishd
