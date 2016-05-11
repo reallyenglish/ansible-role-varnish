@@ -25,7 +25,8 @@ Role Variables
 | varnish\_package | package name | {{ \_\_varnish\_package }} |
 | varnish\_conf\_dir | dir of varnishd | {{ \_\_varnish\_conf\_dir }} |
 | varnish\_cache\_dir | path to file storage | {{ \_\_varnish\_cache\_dir }} |
-| varnish\_storage | storage config to use | file,{{ varnish\_cache\_dir }},100M |
+| varnish\_cache\_size | cache size | 512M |
+| varnish\_storage | storage config to use | file,{{ varnish\_cache\_dir }},{{ varnish\_cache\_size }} |
 | varnish\_varnishd\_listen\_on | host and port to bind | :80 |
 | varnish\_admin\_listen\_on | host and port to bind (varnishadm) | localhost:81 |
 | varnish\_hash | hash config | classic,16383 |
@@ -69,6 +70,7 @@ Example Playbook
           roles:
             - ansible-role-varnish
           vars:
+            varnish_cache_size: 1024M
             varnish_log_dir: /var/log/varnish
             varnish_varnishadm_secret: password
             varnish_vcl:

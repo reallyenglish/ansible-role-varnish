@@ -8,7 +8,8 @@ varnish_package: "{{ __varnish_package }}"
 varnish_conf_dir: "{{ __varnish_conf_dir }}"
 
 varnish_cache_dir: "{{ __varnish_cache_dir }}"
-varnish_storage: "file,{{ varnish_cache_dir }},100M" # -s
+varnish_cache_size: 512M
+varnish_storage: "file,{{ varnish_cache_dir }},{{ varnish_cache_size }}" # -s
 varnish_varnishd_listen_on: ":80" # -a
 varnish_admin_listen_on: "localhost:81" # -T
 varnish_hash: "classic,16383" # -h
