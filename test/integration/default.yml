@@ -5,6 +5,8 @@
     varnish_log_dir: /var/log/varnish
     varnish_varnishadm_secret: password
     varnish_vcl:
+      example:
+        file: test/integration/example.vcl
       default:
         inline: |
           vcl 4.0;

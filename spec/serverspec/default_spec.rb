@@ -20,11 +20,19 @@ when 'freebsd'
   config_dir = '/usr/local/etc/varnish'
 end
 
+another_config = "#{config_dir}/example.vcl"
+
 describe package(package) do
   it { should be_installed }
 end 
 
 describe file(config) do
+  it { should be_file }
+  its(:content) { should match /backend default {/ }
+  its(:content) { should match Regexp.escape('.host = "127.0.0.1";') }
+end
+
+describe file(another_config) do
   it { should be_file }
   its(:content) { should match /backend default {/ }
   its(:content) { should match Regexp.escape('.host = "127.0.0.1";') }

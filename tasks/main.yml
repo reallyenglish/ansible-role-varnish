@@ -58,13 +58,21 @@
     state: directory
   notify: Restart varnishd
 
-- name: Create vcls
+- name: Create vcls (inline)
   template:
     src: default.vcl.j2
     dest: "{{ varnish_conf_dir }}/{{ item.key }}.vcl"
   notify: Restart varnishd
   with_dict: "{{ varnish_vcl }}"
   when: "{{ 'inline' in item.value }}"
+
+- name: Create vcls (file)
+  copy:
+    src: "{{ item.value.file }}"
+    dest: "{{ varnish_conf_dir }}/{{ item.key }}.vcl"
+  notify: Restart varnishd
+  with_dict: "{{ varnish_vcl }}"
+  when: "{{ 'file' in item.value }}"
 
 - name: Create varnishadm secret
   template:
