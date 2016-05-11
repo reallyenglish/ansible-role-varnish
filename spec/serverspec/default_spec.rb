@@ -3,7 +3,6 @@ require 'serverspec'
 
 package = 'varnish'
 services = [ 'varnish' ]
-config  = '/etc/varnish/varnish.conf'
 config_dir = '/etc/varnish'
 user    = 'varnish'
 group   = 'varnish'
@@ -16,10 +15,10 @@ case os[:family]
 when 'freebsd'
   services = %w[ varnishd varnishlog varnishncsa ]
   package = 'varnish4'
-  config = '/usr/local/etc/varnish/default.vcl'
   config_dir = '/usr/local/etc/varnish'
 end
 
+config  = "#{config_dir}/default.vcl"
 another_config = "#{config_dir}/example.vcl"
 
 describe package(package) do
