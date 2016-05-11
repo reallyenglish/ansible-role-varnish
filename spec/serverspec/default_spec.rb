@@ -9,6 +9,7 @@ group   = 'varnish'
 ports   = [ 80, 81 ]
 log_dir = '/var/log/varnish'
 cache_dir = '/var/cache/varnish'
+cache_size = '1024M'
 ncsa_dir = '/var/log/varnishncsa'
 
 case os[:family]
@@ -64,7 +65,7 @@ when 'freebsd'
     its(:content) { should match Regexp.escape('varnishd_admin="localhost:81"') }
     its(:content) { should match Regexp.escape('varnishd_hash="classic,16383"') }
     escaped = Regexp.escape(cache_dir)
-    its(:content) { should match /varnishd_storage="file,#{escaped},100M"/ }
+    its(:content) { should match /varnishd_storage="file,#{escaped},#{cache_size}"/ }
     its(:content) { should match Regexp.escape('varnishd_jailuser="varnish"') }
     its(:content) { should match Regexp.escape('varnishd_extra_flags=""') }
   end
