@@ -10,7 +10,7 @@ ports   = [ 80, 81 ]
 log_dir = '/var/log/varnish'
 cache_dir = '/var/cache/varnish'
 cache_size = '1024M'
-ncsa_dir = '/var/log/varnishncsa'
+ncsa_dir = '/var/log/varnish'
 
 case os[:family]
 when 'freebsd'
@@ -76,7 +76,6 @@ when 'freebsd'
   describe file('/etc/rc.conf.d/varnishncsa') do
     it { should be_file }
     its(:content) { should match Regexp.escape('varnishncsa_file="/var/log/varnishncsa/varnishncsa.log"') }
-    its(:content) { should match Regexp.escape('varnishncsa_logformat=""') }
   end
 end
 
@@ -102,4 +101,26 @@ end
 describe command("sudo varnishadm -S #{config_dir}/secret -T localhost:81 ping") do
   its(:stdout) { should match /PONG \d+ 1.0/ }
   its(:stderr) { should match /^$/ }
+end
+
+describe command('fetch http://127.0.0.1/foo') do
+  its(:stdout) { should match /^$/ }
+  its(:stderr) { should match Regexp.escape('fetch: http://127.0.0.1/foo: Service Unavailable') }
+end
+
+def valid_json?(json)
+  require 'json'
+  begin
+    JSON.parse(json)
+    return true
+  rescue JSON::ParserError => e
+    return false
+  end
+end
+
+describe "json access log" do
+  it 'should be valid json' do
+    line = command("tail -n1 #{ncsa_dir}/access.json").stdout
+    expect(valid_json?(line)).to eq(true)
+  end
 end
