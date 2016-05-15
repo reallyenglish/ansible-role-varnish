@@ -17,13 +17,14 @@
   when: "{{ varnish_log_dir != '/var/log' }}"
 
 - include: configure-varnishlog-FreeBSD.yml
-  when: ansible_os_family == 'FreeBSD'
+  when: ansible_os_family == 'FreeBSD' and varnish_varnishlog_enable
 
 - name: Start varnishlog
   service:
     name: "{{ varnish_varnishlog_service }}"
     enabled: true
     state: started
+  when: varnish_varnishlog_enable
 
 - include: configure-varnishncsa-FreeBSD.yml
   when: ansible_os_family == 'FreeBSD'

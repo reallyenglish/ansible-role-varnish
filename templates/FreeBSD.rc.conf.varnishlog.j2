@@ -1,1 +1,4 @@
 varnishlog_file="{{ varnish_log_file }}"
+{% if varnish_varnish_log_flags %}
+varnishlog_flags="{{ varnish_varnishlog_flags }}
+{% endif %}

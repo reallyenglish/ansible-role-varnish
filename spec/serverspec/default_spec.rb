@@ -14,7 +14,7 @@ ncsa_dir = '/var/log/varnish'
 
 case os[:family]
 when 'freebsd'
-  services = %w[ varnishd varnishlog varnishncsa ]
+  services = %w[ varnishd varnishncsa ]
   package = 'varnish4'
   config_dir = '/usr/local/etc/varnish'
 end
@@ -69,13 +69,8 @@ when 'freebsd'
     its(:content) { should match Regexp.escape('varnishd_jailuser="varnish"') }
     its(:content) { should match Regexp.escape('varnishd_extra_flags=""') }
   end
-  describe file('/etc/rc.conf.d/varnishlog') do
-    it { should be_file }
-    its(:content) { should match /varnishlog_file="/ }
-  end
   describe file('/etc/rc.conf.d/varnishncsa') do
     it { should be_file }
-    its(:content) { should match Regexp.escape('varnishncsa_file="/var/log/varnishncsa/varnishncsa.log"') }
   end
 end
 

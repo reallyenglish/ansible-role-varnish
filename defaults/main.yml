@@ -15,7 +15,9 @@ varnish_admin_listen_on: "localhost:81" # -T
 varnish_hash: "classic,16383" # -h
 varnish_extra_flags: ""
 
+varnish_varnishlog_enable: false
 varnish_varnishlog_service: "{{ __varnish_varnishlog_service }}"
+varnish_varnishlog_flags:
 
 varnish_varnishncsa_service: "{{ __varnish_varnishncsa_service }}"
 varnish_varnishncsa_dir: "{{ __varnish_varnishncsa_dir }}"
