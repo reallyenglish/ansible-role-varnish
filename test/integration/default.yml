@@ -5,6 +5,34 @@
     varnish_cache_size: 1024M
     varnish_log_dir: /var/log/varnish
     varnish_varnishncsa_file: "{{ varnish_log_dir }}/access.json"
+# {
+#     "@fields": {
+#         "http": {
+#             "client": "%{X-Client-Address}i",
+#             "protocol": "%H",
+#             "request_method": "%m",
+#             "query_string": "%q",
+#             "http_host": "%{Host}i",
+#             "source_host": "%{X-Varnish-Host}o",
+#             "status": "%s",
+#             "url": "%U",
+#             "hitmiss": "%{Varnish:hitmiss}x",
+#             "x-varnish": "%{x-varnish}o",
+#             "content-type": "%{Content-Type}o",
+#             "content-length": "%{Content-Length}o",
+#             "x-restarts": "%{X-Restarts}o",
+#             "location": "%{Location}o",
+#             "content-encoding": "%{Content-Encoding}o",
+#             "referer": "%{Referer}i",
+#             "user-agent": "%{User-agent}i",
+#             "accept-encoding": "%{Accept-Encoding}i",
+#             "connection": "%{Connection}i",
+#             "x-varnish-backend": "%{X-Varnish-Backend}o"
+#         }
+#     },
+#     "@version": 1,
+#     "@timestamp": "%{%FT%T%z}t"
+# }
     varnish_varnishncsa_format: '{ \"@fields\": { \"http\": { \"client\": \"%{X-Client-Address}i\", \"protocol\": \"%H\", \"request_method\": \"%m\", \"query_string\": \"%q\", \"http_host\": \"%{Host}i\", \"source_host\": \"%{X-Varnish-Host}o\", \"status\": \"%s\", \"url\": \"%U\", \"hitmiss\": \"%{Varnish:hitmiss}x\", \"x-varnish\": \"%{x-varnish}o\", \"content-type\": \"%{Content-Type}o\", \"content-length\": \"%{Content-Length}o\", \"x-restarts\": \"%{X-Restarts}o\", \"location\": \"%{Location}o\", \"content-encoding\": \"%{Content-Encoding}o\", \"referer\": \"%{Referer}i\", \"user-agent\": \"%{User-agent}i\", \"accept-encoding\": \"%{Accept-Encoding}i\", \"connection\": \"%{Connection}i\", \"x-varnish-backend\": \"%{X-Varnish-Backend}o\" } }, \"@version\": 1, \"@timestamp\": \"{{ "%{" }}%FT%T%z}t\" }'
     varnish_varnishadm_secret: password
     varnish_vcl:
