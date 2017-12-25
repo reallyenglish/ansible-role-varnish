@@ -37,7 +37,7 @@
     varnish_varnishadm_secret: password
     varnish_vcl:
       example:
-        file: test/integration/example.vcl
+        file: tests/serverspec/example.vcl
       default:
         inline: |
           vcl 4.0;

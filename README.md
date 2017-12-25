@@ -1,15 +1,12 @@
-ansible-role-varnish
-=====================
+# ansible-role-varnish
 
 Configure varnish and its supporting daemons
 
-Requirements
-------------
+# Requirements
 
 None
 
-Role Variables
---------------
+# Role Variables
 
 | variable | description | default |
 |----------|-------------|---------|
@@ -60,14 +57,12 @@ Role Variables
 | \_\_varnish\_varnishncsa\_format | "" |
 
 
-Dependencies
-------------
+# Dependencies
 
 None
 
-Example Playbook
-----------------
-
+# Example Playbook
+```yaml
     - hosts: localhost
       roles:
         - ansible-role-varnish
@@ -110,13 +105,12 @@ Example Playbook
                   #
                   # You can do accounting or modifying the final object here.
               }
+```
 
-License
--------
+# License
 
 BSD
 
-Author Information
-------------------
+# Author Information
 
 Tomoyuki Sakurai <tomoyukis@reallyenglish.com>
